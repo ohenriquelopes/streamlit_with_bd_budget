@@ -1,0 +1,23 @@
+version: '3'
+services:
+  mysql:
+    image: mysql_teste
+    container_name: meu_container_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+    volumes:
+      - /home/henrique/PycharmProjects/my_budget_idk/mysql_data/:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    # Outras configurações do serviço MySQL, se necessário
+
+#  python_app:
+#    image: python:3.8
+#    container_name: meu_container_python
+#    volumes:
+#      - /home/henrique/PycharmProjects/my_budget_idk/app/:/app
+#      - /home/henrique/PycharmProjects/my_budget_idk/venv/:/app
+#    ports:
+#      - "5000:5000"
+    # Outras configurações do serviço Python, se necessário
