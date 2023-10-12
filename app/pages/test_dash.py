@@ -6,6 +6,9 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import streamlit as st
 
+
+########################## IMPORT FILE ########################################
+
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title="Superstore!!!", page_icon=":bar_chart:", layout="wide")
@@ -22,10 +25,14 @@ else:
     os.chdir(r"/home/henrique/PycharmProjects/my_budget_idk/app/")
     df = pd.read_csv("Superstore1.csv", encoding="ISO-8859-1")
 
+
+###################### CREATE FILTERS ######################
+
+
 col1, col2 = st.columns((2))
 df["Order Date"] = pd.to_datetime(df["Order Date"])
 
-st.write(df["Order Date"])
+# st.write(df["Order Date"])
 # Getting the min and max date
 startDate = pd.to_datetime(df["Order Date"]).min()
 endDate = pd.to_datetime(df["Order Date"]).max()
@@ -37,6 +44,14 @@ with col2:
     date2 = pd.to_datetime(st.date_input("End Date", endDate))
 
 df = df[(df["Order Date"] >= date1) & (df["Order Date"] <= date2)].copy()
+
+
+
+
+
+
+
+#### CREATE FILTER ###
 
 st.sidebar.header("Choose your filter: ")
 # Create for Region
@@ -76,6 +91,13 @@ else:
     filtered_df = df3[df3["Region"].isin(region) & df3["State"].isin(state) & df3["City"].isin(city)]
 
 category_df = filtered_df.groupby(by=["Category"], as_index=False)["Sales"].sum()
+
+
+
+
+
+
+
 
 with col1:
     st.subheader("Category wise Sales")
