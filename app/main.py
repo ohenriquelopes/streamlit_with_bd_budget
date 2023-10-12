@@ -32,9 +32,8 @@ with col2:
     date2 = st.date_input("End Date", endDate)
 df = df[(df["data_recebimento"] >= date1) & (df["data_recebimento"] <= date2)].copy()
 
+cat_receita = df['categoria'].unique()
 
-
-cat_receita = select.select_all_categoria_receitas()['nome'].unique()
 
 
 st.sidebar.header('Choose your filter: ')
@@ -42,11 +41,16 @@ st.sidebar.header('Choose your filter: ')
 # create for revenue
 revenue = st.sidebar.multiselect('Pick your revenue', cat_receita)
 
+if not revenue:
+    filtered_df = df
+else:
+    filtered_df = df[df['categoria'].isin(revenue)]
 
-filtered_df = df[df['nome'].isin(revenue)]
 
-# with col1:
-#     st.subheader('Receitas')
-#     fig = px.pie(df, values='valor', names='categoria_receita')
-#     fig.update_traces(text=filtered_df['valor'], textposition='outside')
-#     st.plotly_chart(fig, user_container_width=True)
+
+
+with col1:
+    st.subheader('Receitas')
+    fig = px.pie(filtered_df, values='valor', names='categoria', title='Receitas')
+    fig.update_traces(text=filtered_df['valor'], textposition='outside')
+    st.plotly_chart(fig, user_container_width=True)

@@ -9,26 +9,20 @@ conn = st.experimental_connection('mysql', type='sql')
 
 
 def select_all_receitas():
-    df = conn.query('SELECT * from test.receitas;', ttl=600)
-    # dic = df.to_dict()
-    # df_teste = pd.arrays.SparseArray(df['valor'])
-    # df_select = df['valor'].to_dict()
-    # df_select1 = df['valor'].to_list()
-    # df_select = df.to_dict()
-    # return df_select
-    # return df_teste
+    df = conn.query('''
+    select
+    r.id,
+    r.valor,
+    r.pago,
+    r.data_recebimento,
+    fk_conta_cartao,
+    cr.nome as categoria
+from
+    receitas r
+inner join categoria_receitas cr
+    on cr.id = r.categoria_receita_id;
+    ''', ttl=600)
     return df
-    # return dic
-
-# df = pd.DataFrame(
-#     [
-#         {"command": "st.selectbox", "rating": 4, "is_widget": True},
-#         {"command": "st.balloons", "rating": 5, "is_widget": False},
-#         {"command": "st.time_input", "rating": 3, "is_widget": True},
-#     ]
-# )
-#
-# st.dataframe(df, use_container_width=True)
 
 
 def select_all_despesas():
