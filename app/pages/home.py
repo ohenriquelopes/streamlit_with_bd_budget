@@ -7,9 +7,8 @@ import calendar
 
 ######## Pegando ultimo dia do mes ########
 
-# Obtenha a data atual
+
 data_atual = datetime.now()
-# Obtenha o último dia do mês atual
 ultimo_dia_do_mes = calendar.monthrange(data_atual.year, data_atual.month)[1]
 
 

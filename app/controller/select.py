@@ -15,7 +15,6 @@ def select_all_receitas():
     r.valor,
     r.pago,
     r.data_recebimento,
-    fk_conta_cartao,
     cr.nome as categoria
 from
     receitas r
@@ -26,7 +25,21 @@ inner join categoria_receitas cr
 
 
 def select_all_despesas():
-    df = conn.query('SELECT * from test.despesas;', ttl=600)
+    df = conn.query("""
+    SELECT
+    d.id,
+    d.valor,
+    d.pago,
+    d.data_pagamento,
+    cd.nome as 'categoria_despesa',
+    tp.nome as 'tipo_pagamento'
+FROM
+    despesas d
+LEFT JOIN categoria_despesas cd
+    ON d.categoria_despesa_id = cd.id
+LEFT JOIN tipo_pagamento tp
+    ON tp.id = d.tipo_pagamento_id
+    """, ttl=600)
     return df
 
 def select_all_categoria_despesas():
