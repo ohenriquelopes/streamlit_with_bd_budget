@@ -93,7 +93,8 @@ else:
 category_df = filtered_df.groupby(by=["Category"], as_index=False)["Sales"].sum()
 
 
-
+st.write("daiuhdua")
+st.write(category_df)
 
 
 

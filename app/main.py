@@ -49,6 +49,7 @@ else:
     filtered_df = df[df['categoria'].isin(revenue)]
 
 
+
 with col1:
     st.subheader('Receitas')
     fig = px.pie(filtered_df, values='valor', names='categoria')
